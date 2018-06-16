@@ -2,6 +2,7 @@ function Solver(grid) {
   const logicalGroups = [];
   const strategies = [
     new Strategy_FieldsInGroupAreNoOptions(),
+    new Strategy_OnlyOptionInGroup(),
     new Strategy_OneOptionSetValue()
   ];
 
