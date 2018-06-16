@@ -45,7 +45,7 @@ function Solver(grid) {
       }
 
       const options = Object.getOwnPropertyNames(cell.opt);
-      if(options.length == 1) {
+      if(options.length === 1) {
         cell.val = parseInt(options[0], 10);
         cell.opt = {};
       }
