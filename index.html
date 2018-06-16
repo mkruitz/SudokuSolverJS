@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Solver</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="grid.js"></script>
+    <script src="printer.js"></script>
+    <script src="solver.js"></script>
+</head>
+<body>
+<input id="size" type="text" value="4" /><br/>
+<textarea id="in" rows="9" cols="9">
+xxxx
+4xxx
+3412
+2341
+</textarea>
+<br/>
+<input type="button" value="Solve" onclick="solve()" /><input type="button" value="Clear" onclick="clearField()">
+<div id="out">
+
+</div>
+<script>
+var printer = new Printer();
+
+setScenario(3, [
+  '123',
+  'x12',
+  '3xx'
+]);
+
+function setScenario(size, gridText) {
+  document.getElementById('size').value = size;
+  document.getElementById('in').value = gridText.join('\r\n');
+}
+
+function clearField() {
+  document.getElementById('out').innerHTML = '';
+}
+
+function solve() {
+  var input = document.getElementById('in');
+  var size = parseInt(document.getElementById('size').value, 10);
+
+
+  var g = new Grid(input.value, size);
+  var solver = new Solver(g);
+
+  printGrid(g);
+  for(var i = 0; i < 2; ++i) {
+    solver.tick();
+    printGrid(g);
+  }
+}
+
+function printGrid(grid) {
+  var parent = printer.print(grid);
+  document.getElementById('out').appendChild(parent);
+}
+
+solve();
+</script>
+</body>
+</html>

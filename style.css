@@ -1,0 +1,46 @@
+body {
+    background-color: #C0c0c0;
+    font-size: 50px;
+}
+
+#out {
+  border: 1px solid black;
+  width: 900px;
+  height: 900px;
+}
+
+.grid { box-sizing: content-box; }
+.cell { box-sizing: border-box; }
+
+.grid, .cell {
+    float: left;
+    border: 1px solid black;
+}
+
+.grid {
+    margin: 5px;
+    border-color: green;
+}
+
+.cell {
+    position: relative;
+
+    width: 1em;
+    height: 1em;
+
+    font-family: Monospaced;
+    text-align: center;
+}
+
+.cell .body {
+    margin: 10px 0;
+    font-size: .42em;
+}
+
+.cell .hints {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+
+    font-size: .252em;
+}
