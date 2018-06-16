@@ -1,6 +1,5 @@
 function Solver(grid) {
   const logicalGroups = [];
-  let changed = false;
 
   logicalGroups.push(...grid.groups.hor);
   logicalGroups.push(...grid.groups.vert);
@@ -13,17 +12,26 @@ function Solver(grid) {
 
       loop(logicalGroups, solveGroup);
 
-      return changed;
+      return isChanged();
     }
   };
 
   function clearChanges() {
-    changed = false;
-
     loop(grid.groups.all, function(cell) {
       cell.changed.val = false;
       cell.changed.opt = false;
     });
+  }
+
+  function isChanged() {
+    for(let i = 0, l = grid.groups.all.length; i < l; ++i) {
+      let cell = grid.groups.all[i].changed;
+
+      if(cell.val || cell.opt) {
+        return true;
+      }
+    }
+    return false;
   }
 
   function solveGroup(group) {
@@ -42,8 +50,6 @@ function Solver(grid) {
 
       for(let i = 0, l = alreadyFoundValues.length; i < l; ++i) {
         if(cell.opt[alreadyFoundValues[i]]) {
-
-          changed = true;
           cell.changed.opt = true;
         }
         delete cell.opt[alreadyFoundValues[i]];
@@ -53,8 +59,6 @@ function Solver(grid) {
       if(options.length === 1) {
         cell.val = parseInt(options[0], 10);
         cell.opt = {};
-
-        changed = true;
         cell.changed.val = true;
       }
     });
