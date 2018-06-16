@@ -27,14 +27,16 @@ function Printer() {
 
   function getCellValue(cell) {
     if(Number.isNaN(cell.val)) {
-      return 'X';
+      return '';
     }
     return cell.val;
   }
 
   function getHints(cell) {
     const options = Object.getOwnPropertyNames(cell.opt);
-    return options.join(', ');
+    return options.length
+      ? options.join(', ') + '.'
+      : '';
   }
 
   function newElm(className) {

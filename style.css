@@ -3,12 +3,6 @@ body {
     font-size: 50px;
 }
 
-#out {
-  border: 1px solid black;
-  width: 900px;
-  height: 900px;
-}
-
 .grid { box-sizing: content-box; }
 .cell { box-sizing: border-box; }
 
@@ -19,7 +13,6 @@ body {
 
 .grid {
     margin: 5px;
-    border-color: green;
 }
 
 .cell {
@@ -42,5 +35,5 @@ body {
     top: 1px;
     left: 1px;
 
-    font-size: .252em;
+    font-size: .21em;
 }
