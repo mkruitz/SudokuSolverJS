@@ -12,9 +12,15 @@ function Printer() {
           gridElm.appendChild(
             newElm('cell',
               newElm('body', function(elm) {
+                if(cell.changed.val) {
+                  elm.classList.add('changed');
+                }
                 elm.innerText = getCellValue(cell);
               }),
               newElm('hints', function(elm) {
+                if(cell.changed.opt) {
+                  elm.classList.add('changed');
+                }
                 elm.innerText = getHints(cell);
               })
             )

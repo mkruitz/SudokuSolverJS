@@ -8,6 +8,7 @@ function Solver(grid) {
   return {
     tick: function() {
       console.log('tick');
+      clearChanges();
 
       for(let i = 0, l = solvers.length; i < l; ++i) {
         solvers[i]();
@@ -16,6 +17,13 @@ function Solver(grid) {
       return true;
     }
   };
+
+  function clearChanges() {
+    loopGroup(grid.groups.all, function(cell) {
+      cell.changed.val = false;
+      cell.changed.opt = false;
+    });
+  }
 
   function addSolvers(groups) {
     for(let i = 0, l = groups.length; i < l; ++i) {
@@ -41,6 +49,9 @@ function Solver(grid) {
       }
 
       for(let i = 0, l = alreadyFoundValues.length; i < l; ++i) {
+        if(cell.opt[alreadyFoundValues[i]]) {
+          cell.changed.opt = true;
+        }
         delete cell.opt[alreadyFoundValues[i]];
       }
 
@@ -48,12 +59,13 @@ function Solver(grid) {
       if(options.length === 1) {
         cell.val = parseInt(options[0], 10);
         cell.opt = {};
+        cell.changed.val = true;
       }
     });
   }
 
   function loopGroup(group, act) {
-    for(let i = 0, l = grid.size; i < l; ++i) {
+    for(let i = 0, l = group.length; i < l; ++i) {
       let cell = group[i];
       act(cell);
     }

@@ -8,7 +8,8 @@ function Grid(text, size) {
     groups: {
       hor: getHorizontalGroups(),
       vert: getVerticalGroups(),
-      area: getAreaGroups()
+      area: getAreaGroups(),
+      all: getAreaGroup(size, 0, 0)
     }
   };
 
@@ -36,14 +37,25 @@ function Grid(text, size) {
 
 
   function toCell(val) {
+    return {
+      val: val,
+      opt: getOptions(val),
+      changed: {
+        val: false,
+        opt: false
+      }
+    };
+  }
+
+  function getOptions(val) {
     const options = {};
     for(let i = 1, l = size + 1; i < l; ++i) {
       options[i] = true;
     }
 
     return Number.isNaN(val)
-      ? { val: val, opt: options }
-      : { val: val, opt: {} };
+      ? options
+      : {};
   }
 
   function getHorizontalGroups() {
