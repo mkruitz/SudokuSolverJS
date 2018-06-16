@@ -28,7 +28,7 @@ body {
     width: 1em;
     height: 1em;
 
-    font-family: Monospaced;
+    font-family: Monospaced, monospace;
     text-align: center;
 }
 
