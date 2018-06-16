@@ -1,9 +1,9 @@
 function Solver(grid) {
   var solvers = [];
 
-  addSolvers(getHorizontalGroups());
-  addSolvers(getVerticalGroups());
-  addSolvers(getAreaGroups());
+  addSolvers(grid.groups.hor);
+  addSolvers(grid.groups.vert);
+  addSolvers(grid.groups.area);
 
   return {
     tick: function() {
@@ -25,52 +25,6 @@ function Solver(grid) {
       solvers.push(s);
     }
   }
-
-  function getHorizontalGroups() {
-    var groups = [];
-    for(var i = 0, l = grid.size; i < l; ++i) {
-      groups.push(grid.cells[i]);
-    }
-    return groups;
-  }
-
-  function getVerticalGroups() {
-    var groups = [];
-    for(var i = 0, l = grid.size; i < l; ++i) {
-      var group = [];
-      for(var j = 0, jl = grid.size; j < jl; ++j) {
-        group.push(grid.cells[j][i]);
-      }
-      groups.push(group);
-    }
-    return groups;
-  }
-
-  function getAreaGroups() {
-    var size = Math.pow(grid.size, 1/2);
-    if(size !== Math.floor(size)) {
-      return [];
-    }
-
-    var groups = [];
-    for(var i = 0, l = size; i < l; ++i) {
-      for(var j = 0, jl = size; j < jl; ++j) {
-        groups.push(getAreaGroup(size, i * size, j * size));
-      }
-    }
-    return groups;
-  }
-
-  function getAreaGroup(size, iStart, jStart) {
-    var groups = [];
-    for(var i = 0, l = size; i < l; ++i) {
-      for(var j = 0, jl = size; j < jl; ++j) {
-        groups.push(grid.cells[j+jStart][i+iStart]);
-      }
-    }
-    return groups;
-  }
-
 
   function solveGroup(group) {
     var alreadyFoundValues = [];
