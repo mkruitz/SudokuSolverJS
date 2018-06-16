@@ -1,49 +1,38 @@
 function Solver(grid) {
-  const solvers = [];
+  const logicalGroups = [];
 
-  addSolvers(grid.groups.hor);
-  addSolvers(grid.groups.vert);
-  addSolvers(grid.groups.area);
+  logicalGroups.push(...grid.groups.hor);
+  logicalGroups.push(...grid.groups.vert);
+  logicalGroups.push(...grid.groups.area);
 
   return {
     tick: function() {
       console.log('tick');
       clearChanges();
 
-      for(let i = 0, l = solvers.length; i < l; ++i) {
-        solvers[i]();
-      }
+      loop(logicalGroups, solveGroup);
 
       return true;
     }
   };
 
   function clearChanges() {
-    loopGroup(grid.groups.all, function(cell) {
+    loop(grid.groups.all, function(cell) {
       cell.changed.val = false;
       cell.changed.opt = false;
     });
   }
 
-  function addSolvers(groups) {
-    for(let i = 0, l = groups.length; i < l; ++i) {
-      let s = function(i) {
-        return function() { solveGroup(groups[i]); };
-      }(i);
-      solvers.push(s);
-    }
-  }
-
   function solveGroup(group) {
     const alreadyFoundValues = [];
 
-    loopGroup(group, function(cell) {
+    loop(group, function(cell) {
       if(!Number.isNaN(cell.val)) {
         alreadyFoundValues.push(cell.val);
       }
     });
 
-    loopGroup(group, function(cell) {
+    loop(group, function(cell) {
       if(!Number.isNaN(cell.val)) {
         return;
       }
@@ -64,7 +53,7 @@ function Solver(grid) {
     });
   }
 
-  function loopGroup(group, act) {
+  function loop(group, act) {
     for(let i = 0, l = group.length; i < l; ++i) {
       let cell = group[i];
       act(cell);
