@@ -55,11 +55,10 @@ function solve() {
   const g = new Grid(input.value, size);
   const solver = new Solver(g);
 
-  printGrid(g);
-  for(let i = 0; i < 2; ++i) {
-    solver.tick();
+  for(let i = 0; i < 10 && solver.tick(); ++i) {
     printGrid(g);
   }
+  printGrid(g);
 }
 
 function printGrid(grid) {
