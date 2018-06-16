@@ -1,7 +1,7 @@
 function Grid(text, size) {
   text = text || '';
   size = size || 9;
-  var cells = toGrid(text);
+  const cells = toGrid(text);
   return {
     cells: cells,
     size: size,
@@ -13,11 +13,11 @@ function Grid(text, size) {
   };
 
   function toGrid(text) {
-    var rows = [];
-    var lines = text.split('\n');
+    let rows = [];
+    const lines = text.split('\n');
 
-    for(var i = 0, l = size; i < l; ++i) {
-      var line = lines[i] || '';
+    for(let i = 0, l = size; i < l; ++i) {
+      let line = lines[i] || '';
       rows.push(toRow(line, size));
     }
 
@@ -25,10 +25,10 @@ function Grid(text, size) {
   }
 
   function toRow(line) {
-    var row = [];
+    let row = [];
 
-    for (var i = 0, l = size; i < l; ++i) {
-      var val = parseInt(line[i], 10);
+    for (let i = 0, l = size; i < l; ++i) {
+      let val = parseInt(line[i], 10);
       row.push(toCell(val));
     }
     return row;
@@ -36,8 +36,8 @@ function Grid(text, size) {
 
 
   function toCell(val) {
-    var options = {};
-    for(var i = 1, l = size + 1; i < l; ++i) {
+    const options = {};
+    for(let i = 1, l = size + 1; i < l; ++i) {
       options[i] = true;
     }
 
@@ -47,18 +47,18 @@ function Grid(text, size) {
   }
 
   function getHorizontalGroups() {
-    var groups = [];
-    for(var i = 0, l = size; i < l; ++i) {
+    const groups = [];
+    for(let i = 0, l = size; i < l; ++i) {
       groups.push(cells[i]);
     }
     return groups;
   }
 
   function getVerticalGroups() {
-    var groups = [];
-    for(var i = 0, l = size; i < l; ++i) {
-      var group = [];
-      for(var j = 0, jl = size; j < jl; ++j) {
+    const groups = [];
+    for(let i = 0, l = size; i < l; ++i) {
+      let group = [];
+      for(let j = 0, jl = size; j < jl; ++j) {
         group.push(cells[j][i]);
       }
       groups.push(group);
@@ -67,14 +67,14 @@ function Grid(text, size) {
   }
 
   function getAreaGroups() {
-    var areaSize = Math.pow(size, 1/2);
+    const areaSize = Math.pow(size, 1/2);
     if(areaSize !== Math.floor(areaSize)) {
       return [];
     }
 
-    var groups = [];
-    for(var i = 0, l = areaSize; i < l; ++i) {
-      for(var j = 0, jl = areaSize; j < jl; ++j) {
+    const groups = [];
+    for(let i = 0, l = areaSize; i < l; ++i) {
+      for(let j = 0, jl = areaSize; j < jl; ++j) {
         groups.push(getAreaGroup(areaSize, i * areaSize, j * areaSize));
       }
     }
@@ -82,9 +82,9 @@ function Grid(text, size) {
   }
 
   function getAreaGroup(areaSize, iStart, jStart) {
-    var groups = [];
-    for(var i = 0, l = areaSize; i < l; ++i) {
-      for(var j = 0, jl = areaSize; j < jl; ++j) {
+    const groups = [];
+    for(let i = 0, l = areaSize; i < l; ++i) {
+      for(let j = 0, jl = areaSize; j < jl; ++j) {
         groups.push(cells[j+jStart][i+iStart]);
       }
     }

@@ -3,12 +3,12 @@ function Printer() {
     print: function(grid) {
       console.log(grid);
 
-      var gridElm = newElm('grid', function(elm){
+      const gridElm = newElm('grid', function(elm){
         elm.style = 'width: ' + grid.size + 'em; height: ' + grid.size + 'em;';
       });
-      for(var i = 0, l = grid.size; i < l; ++i) {
-        for(var j = 0, jl = grid.size; j < jl; ++j) {
-          var cell = grid.cells[i][j];
+      for(let i = 0, l = grid.size; i < l; ++i) {
+        for(let j = 0, jl = grid.size; j < jl; ++j) {
+          let cell = grid.cells[i][j];
           gridElm.appendChild(
             newElm('cell',
               newElm('body', function(elm) {
@@ -33,15 +33,15 @@ function Printer() {
   }
 
   function getHints(cell) {
-    var options = Object.getOwnPropertyNames(cell.opt);
+    const options = Object.getOwnPropertyNames(cell.opt);
     return options.join(', ');
   }
 
   function newElm(className) {
-    var elm = document.createElement('div');
+    const elm = document.createElement('div');
     elm.className = className;
-    for(var i = 1, l = arguments.length; i < l; ++i) {
-      var arg = arguments[i];
+    for(let i = 1, l = arguments.length; i < l; ++i) {
+      let arg = arguments[i];
       if(typeof(arg) === 'function') {
         arg(elm);
       }

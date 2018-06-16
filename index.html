@@ -22,7 +22,7 @@ xxx4
 
 </div>
 <script>
-var printer = new Printer();
+const printer = new Printer();
 
 setScenario(3, [
   '123',
@@ -40,22 +40,22 @@ function clearField() {
 }
 
 function solve() {
-  var input = document.getElementById('in');
-  var size = parseInt(document.getElementById('size').value, 10);
+  const input = document.getElementById('in');
+  const size = parseInt(document.getElementById('size').value, 10);
 
 
-  var g = new Grid(input.value, size);
-  var solver = new Solver(g);
+  const g = new Grid(input.value, size);
+  const solver = new Solver(g);
 
   printGrid(g);
-  for(var i = 0; i < 2; ++i) {
+  for(let i = 0; i < 2; ++i) {
     solver.tick();
     printGrid(g);
   }
 }
 
 function printGrid(grid) {
-  var parent = printer.print(grid);
+  const parent = printer.print(grid);
   document.getElementById('out').appendChild(parent);
 }
 
