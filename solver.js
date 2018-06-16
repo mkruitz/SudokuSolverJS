@@ -12,7 +12,6 @@ function Solver(grid) {
 
   return {
     tick: function() {
-      console.log('tick');
       clearChanges();
 
       loop(logicalGroups, solveGroup);
