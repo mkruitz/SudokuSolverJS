@@ -4,6 +4,7 @@ function Printer() {
       console.log(grid);
 
       const gridElm = newElm('grid', function(elm){
+        elm.classList.add('size-' + grid.size);
         elm.style = 'width: ' + grid.size + 'em; height: ' + grid.size + 'em;';
       });
       for(let i = 0, l = grid.size; i < l; ++i) {

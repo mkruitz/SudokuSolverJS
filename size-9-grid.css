@@ -1,0 +1,20 @@
+.size-9 .cell {
+    border-right-width: 0;
+    border-bottom-width: 0;
+}
+
+.size-9 .cell:nth-of-type(3n) {
+    border-right-width: 1px;
+}
+
+.size-9 .cell:nth-of-type(27n+19),
+.size-9 .cell:nth-of-type(27n+20),
+.size-9 .cell:nth-of-type(27n+21),
+.size-9 .cell:nth-of-type(27n+22),
+.size-9 .cell:nth-of-type(27n+23),
+.size-9 .cell:nth-of-type(27n+24),
+.size-9 .cell:nth-of-type(27n+25),
+.size-9 .cell:nth-of-type(27n+26),
+.size-9 .cell:nth-of-type(27n+27) {
+    border-bottom-width: 1px;
+}
