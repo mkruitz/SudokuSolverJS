@@ -1,6 +1,7 @@
 function Grid(text, size) {
   text = text || '';
   size = size || 9;
+  let cellIndex = 0;
   const cells = toGrid(text);
   return {
     cells: cells,
@@ -35,9 +36,10 @@ function Grid(text, size) {
     return row;
   }
 
-
   function toCell(val) {
+    cellIndex++;
     return {
+      id: cellIndex,
       val: val,
       opt: getOptions(val),
       changed: {
