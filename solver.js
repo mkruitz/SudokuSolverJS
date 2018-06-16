@@ -1,5 +1,9 @@
 function Solver(grid) {
   const logicalGroups = [];
+  const strategies = [
+    new Strategy_FieldsInGroupAreNoOptions(),
+    new Strategy_OneOptionSetValue()
+  ];
 
   logicalGroups.push(...grid.groups.hor);
   logicalGroups.push(...grid.groups.vert);
@@ -35,32 +39,8 @@ function Solver(grid) {
   }
 
   function solveGroup(group) {
-    const alreadyFoundValues = [];
-
-    loop(group, function(cell) {
-      if(!Number.isNaN(cell.val)) {
-        alreadyFoundValues.push(cell.val);
-      }
-    });
-
-    loop(group, function(cell) {
-      if(!Number.isNaN(cell.val)) {
-        return;
-      }
-
-      for(let i = 0, l = alreadyFoundValues.length; i < l; ++i) {
-        if(cell.opt[alreadyFoundValues[i]]) {
-          cell.changed.opt = true;
-        }
-        delete cell.opt[alreadyFoundValues[i]];
-      }
-
-      const options = Object.getOwnPropertyNames(cell.opt);
-      if(options.length === 1) {
-        cell.val = parseInt(options[0], 10);
-        cell.opt = {};
-        cell.changed.val = true;
-      }
+    loop(strategies, function(strategy) {
+      strategy.tick(group);
     });
   }
 
