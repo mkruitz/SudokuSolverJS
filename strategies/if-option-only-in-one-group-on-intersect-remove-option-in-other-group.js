@@ -6,22 +6,22 @@ function Strategy_IfOptionOnlyInOneGroupOnIntersectRemoveOptionInOtherGroup(grid
         let areaCounts = S.countOptions(intersect.area);
         let lineCounts = S.countOptions(intersect.line);
 
-        H.loopProps(intersectCounts, function (countValue) {
-          let intersectCount = intersectCounts[countValue];
-          let areaCount = areaCounts[countValue] || [];
-          let lineCount = lineCounts[countValue] || [];
+        H.loopProps(intersectCounts, function (opt) {
+          let intersectCount = intersectCounts[opt];
+          let areaCount = areaCounts[opt] || [];
+          let lineCount = lineCounts[opt] || [];
 
-          removeOptions(countValue, intersectCount, areaCount, lineCount);
-          removeOptions(countValue, intersectCount, areaCount, lineCount);
+          removeOptions(opt, intersectCount, areaCount, lineCount);
+          removeOptions(opt, intersectCount, areaCount, lineCount);
         });
       });
     }
   };
 
-  function removeOptions(countValue, intersectCount, groupA, groupB) {
+  function removeOptions(opt, intersectCount, groupA, groupB) {
     if(intersectCount.length  === groupA.length) {
       let nonIntersecting = getNonIntersectingCells(intersectCount, groupB);
-      let optionsToRemove = [countValue];
+      let optionsToRemove = [opt];
       H.loop(nonIntersecting, function(cell) {
         S.removeOptionsFromCell(cell, optionsToRemove);
       });
