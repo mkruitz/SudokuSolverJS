@@ -4,7 +4,8 @@ function Solver(grid) {
     new Strategy_FieldsInGroupAreNoOptions(),
     new Strategy_OnlyOptionInGroup(),
     new Strategy_OneOptionSetValue(),
-    new Strategy_IfOptionOnlyInOneGroupOnIntersectRemoveOptionInOtherGroup(grid)
+    new Strategy_IfOptionOnlyInOneGroupOnIntersectRemoveOptionInOtherGroup(grid),
+    new Strategy_IfMultipleOptionsInSameCellsTThenRemoveOtherOptions(grid)
   ];
   let strategyIndex = 0;
   let changesCount = 0;
