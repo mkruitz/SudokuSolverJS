@@ -5,7 +5,7 @@ function Solver(grid) {
     new Strategy_OnlyOptionInGroup(),
     new Strategy_OneOptionSetValue(),
     new Strategy_IfOptionOnlyInOneGroupOnIntersectRemoveOptionInOtherGroup(grid),
-    new Strategy_IfMultipleOptionsInSameCellsTThenRemoveOtherOptions(grid)
+    new Strategy_IfMultipleOptionsInSameCellsThenRemoveOtherOptions(grid)
   ];
   let strategyIndex = 0;
   let changesCount = 0;
@@ -100,6 +100,19 @@ const S = {
     cell.val = val;
     cell.opt = {};
     cell.changed.val = true;
+  },
+  setOptionsFromCell: function(cell, options) {
+    const origOptions = H.propsToComparableString(cell.opt);
+    const newOptions = H.toComparableString(options);
+
+    cell.opt = {};
+    H.loop(options, function(opt) {
+      cell.opt[opt] = true;
+    });
+
+    if(origOptions !== newOptions) {
+      cell.changed.opt = true;
+    }
   },
   removeOptionsFromCell: function(cell, optionsToRemove) {
     for(let i = 0, l = optionsToRemove.length; i < l; ++i) {

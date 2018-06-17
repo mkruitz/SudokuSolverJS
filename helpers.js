@@ -3,6 +3,10 @@ const H = (function(){
     loop: _loop,
     loopProps: function(obj, act) {
       _loop(Object.getOwnPropertyNames(obj), act);
+    },
+    toComparableString: _toComparableString,
+    propsToComparableString: function(obj) {
+      return _toComparableString(Object.getOwnPropertyNames(obj));
     }
   };
 
@@ -11,5 +15,12 @@ const H = (function(){
       let item = list[i];
       act(item);
     }
+  }
+
+  function _toComparableString(values) {
+    let list = values.slice(0);
+    list.sort();
+
+    return list.join(',');
   }
 })();
