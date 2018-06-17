@@ -49,12 +49,18 @@ function solve() {
   const input = document.getElementById('in');
   const size = parseInt(document.getElementById('size').value, 10);
 
-
   const g = new Grid(input.value, size);
   const solver = new Solver(g);
+  let i = 0;
+  let status = solver.tick();
 
-  for(let i = 0; i < 20 && solver.tick(); ++i) {
-    printGrid(g);
+  while( i < 20 && !status.done) {
+    if(status.isChanged) {
+      printGrid(g);
+    }
+
+    status = solver.tick();
+    ++i;
   }
   printGrid(g);
 }

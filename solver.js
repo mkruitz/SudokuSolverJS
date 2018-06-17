@@ -5,6 +5,8 @@ function Solver(grid) {
     new Strategy_OnlyOptionInGroup(),
     new Strategy_OneOptionSetValue()
   ];
+  let strategyIndex = 0;
+  let changesCount = 0;
 
   logicalGroups.push(...grid.groups.hor);
   logicalGroups.push(...grid.groups.vert);
@@ -14,9 +16,18 @@ function Solver(grid) {
     tick: function() {
       clearChanges();
 
-      loop(logicalGroups, solveGroup);
+      runStrategy();
+      selectNextStrategy();
 
-      return isChanged();
+      let changed = isChanged();
+      changesCount += changed
+        ? 1
+        : -1;
+
+      return {
+        done: changesCount <= -strategies.length,
+        isChanged: changed
+      };
     }
   };
 
@@ -38,10 +49,13 @@ function Solver(grid) {
     return false;
   }
 
-  function solveGroup(group) {
-    loop(strategies, function(strategy) {
-      strategy.tick(group);
-    });
+  function runStrategy() {
+    let s = strategies[strategyIndex];
+    loop(logicalGroups, s.tick);
+  }
+
+  function selectNextStrategy() {
+    strategyIndex = (strategyIndex + 1) % strategies.length;
   }
 
   function loop(group, act) {
