@@ -88,5 +88,21 @@ const S = {
       counts: countOptions,
       setValues: setValues
     };
+  },
+  setCellValue: function(cell, val) {
+    if(!Number.isInteger(val)) {
+      val = parseInt(val, 10);
+    }
+    cell.val = val;
+    cell.opt = {};
+    cell.changed.val = true;
+  },
+  removeOptionsFromCell: function(cell, optionsToRemove) {
+    for(let i = 0, l = optionsToRemove.length; i < l; ++i) {
+      if(cell.opt[optionsToRemove[i]]) {
+        cell.changed.opt = true;
+      }
+      delete cell.opt[optionsToRemove[i]];
+    }
   }
 };

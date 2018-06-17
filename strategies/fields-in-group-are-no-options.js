@@ -14,12 +14,7 @@ function Strategy_FieldsInGroupAreNoOptions() {
           return;
         }
 
-        for(let i = 0, l = alreadyFoundValues.length; i < l; ++i) {
-          if(cell.opt[alreadyFoundValues[i]]) {
-            cell.changed.opt = true;
-          }
-          delete cell.opt[alreadyFoundValues[i]];
-        }
+        S.removeOptionsFromCell(cell, alreadyFoundValues);
       });
     }
   };

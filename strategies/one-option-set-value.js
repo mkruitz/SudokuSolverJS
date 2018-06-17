@@ -8,9 +8,7 @@ function Strategy_OneOptionSetValue() {
 
         const options = Object.getOwnPropertyNames(cell.opt);
         if(options.length === 1) {
-          cell.val = parseInt(options[0], 10);
-          cell.opt = {};
-          cell.changed.val = true;
+          S.setCellValue(cell, options[0]);
         }
       });
     }
