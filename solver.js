@@ -64,3 +64,29 @@ function Solver(grid) {
     strategyIndex = (strategyIndex + 1) % strategies.length;
   }
 }
+
+const S = {
+  countOptions: function(group) {
+    const countOptions = { };
+    const setValues = { };
+
+    H.loop(group, function(cell) {
+      if (!Number.isNaN(cell.val)) {
+        setValues[cell.val]  = true;
+        return;
+      }
+
+      const options = Object.getOwnPropertyNames(cell.opt);
+      for (let i = 0, l = options.length; i < l; ++i) {
+        let opt = options[i];
+        let count = countOptions[opt] = countOptions[opt] || [];
+        count.push(cell);
+      }
+    });
+
+    return {
+      counts: countOptions,
+      setValues: setValues
+    };
+  }
+};
