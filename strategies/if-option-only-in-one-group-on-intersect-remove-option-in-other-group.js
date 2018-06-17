@@ -12,7 +12,7 @@ function Strategy_IfOptionOnlyInOneGroupOnIntersectRemoveOptionInOtherGroup(grid
           let lineCount = lineCounts[opt] || [];
 
           removeOptions(opt, intersectCount, areaCount, lineCount);
-          removeOptions(opt, intersectCount, areaCount, lineCount);
+          removeOptions(opt, intersectCount, lineCount, areaCount);
         });
       });
     }
