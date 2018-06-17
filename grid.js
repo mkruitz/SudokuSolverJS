@@ -139,7 +139,7 @@ function Grid(text, size) {
 
   function getAreaLineIntersects(areaSize, lines, indexFunc) {
     const intersects = [];
-    loop(areas, function (area) {
+    H.loop(areas, function (area) {
       for (let i = 0, l = areaSize; i < l; ++i) {
         let intersect = [];
         for (let j = 0, jl =  areaSize; j < jl; ++j) {
@@ -167,12 +167,5 @@ function Grid(text, size) {
       }
     }
     throw 'Cell with id \'' + cell.id + '\' not found.';
-  }
-
-  function loop(group, act) {
-    for(let i = 0, l = group.length; i < l; ++i) {
-      let cell = group[i];
-      act(cell);
-    }
   }
 }

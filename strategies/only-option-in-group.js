@@ -4,7 +4,7 @@ function Strategy_OnlyOptionInGroup() {
       const countOptions = { };
       const setValues = { };
 
-      loop(group, function(cell) {
+      H.loop(group, function(cell) {
         if (!Number.isNaN(cell.val)) {
           setValues[cell.val]  = true;
           return;
@@ -18,7 +18,7 @@ function Strategy_OnlyOptionInGroup() {
         }
       });
 
-      loop(Object.getOwnPropertyNames(countOptions), function (opt) {
+      H.loop(Object.getOwnPropertyNames(countOptions), function (opt) {
         let count = countOptions[opt];
         if(count.length === 1 && !setValues[opt]) {
           count[0].val = parseInt(opt, 10);
@@ -29,11 +29,4 @@ function Strategy_OnlyOptionInGroup() {
       });
     }
   };
-
-  function loop(group, act) {
-    for(let i = 0, l = group.length; i < l; ++i) {
-      let cell = group[i];
-      act(cell);
-    }
-  }
 }

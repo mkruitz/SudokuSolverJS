@@ -33,7 +33,7 @@ function Solver(grid) {
   };
 
   function clearChanges() {
-    loop(grid.groups.all, function(cell) {
+    H.loop(grid.groups.all, function(cell) {
       cell.changed.val = false;
       cell.changed.opt = false;
     });
@@ -56,18 +56,11 @@ function Solver(grid) {
       s.tick();
     }
     if(s.tickPerGroup) {
-      loop(logicalGroups, s.tickPerGroup);
+      H.loop(logicalGroups, s.tickPerGroup);
     }
   }
 
   function selectNextStrategy() {
     strategyIndex = (strategyIndex + 1) % strategies.length;
-  }
-
-  function loop(group, act) {
-    for(let i = 0, l = group.length; i < l; ++i) {
-      let cell = group[i];
-      act(cell);
-    }
   }
 }

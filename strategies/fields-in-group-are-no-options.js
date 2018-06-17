@@ -3,13 +3,13 @@ function Strategy_FieldsInGroupAreNoOptions() {
     tickPerGroup: function(group) {
       const alreadyFoundValues = [];
 
-      loop(group, function(cell) {
+      H.loop(group, function(cell) {
         if(!Number.isNaN(cell.val)) {
           alreadyFoundValues.push(cell.val);
         }
       });
 
-      loop(group, function(cell) {
+      H.loop(group, function(cell) {
         if(!Number.isNaN(cell.val)) {
           return;
         }
@@ -23,11 +23,4 @@ function Strategy_FieldsInGroupAreNoOptions() {
       });
     }
   };
-
-  function loop(group, act) {
-    for(let i = 0, l = group.length; i < l; ++i) {
-      let cell = group[i];
-      act(cell);
-    }
-  }
 }
