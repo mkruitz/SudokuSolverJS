@@ -3,15 +3,19 @@ function Grid(text, size) {
   size = size || 9;
   let cellIndex = 0;
   const cells = toGrid(text);
+  const areas = getAreaGroups();
+  const horizontalLines = getHorizontalGroups();
+  const verticalLines = getVerticalGroups();
   return {
     cells: cells,
     size: size,
     groups: {
-      hor: getHorizontalGroups(),
-      vert: getVerticalGroups(),
-      area: getAreaGroups(),
+      hor: horizontalLines,
+      vert: verticalLines,
+      area: areas,
       all: getAreaGroup(size, 0, 0)
-    }
+    },
+    intersects: getAreaIntersects()
   };
 
   function toGrid(text) {
@@ -103,5 +107,72 @@ function Grid(text, size) {
       }
     }
     return groups;
+  }
+
+  function getAreaIntersects() {
+    const areaSize = Math.pow(size, 1/2);
+    if(areaSize !== Math.floor(areaSize)) {
+      return [];
+    }
+
+    return [
+      ...getHorizontalAreaIntersects(areaSize),
+      ...getVerticalAreaIntersects(areaSize)
+    ];
+  }
+
+  function getHorizontalAreaIntersects(areaSize) {
+    return getAreaLineIntersects(
+      areaSize,
+      horizontalLines,
+      function (i, j) { return j * areaSize + i; }
+    );
+  }
+
+  function getVerticalAreaIntersects(areaSize) {
+    return getAreaLineIntersects(
+      areaSize,
+      verticalLines,
+      function (i, j) { return i * areaSize + j; }
+    );
+  }
+
+  function getAreaLineIntersects(areaSize, lines, indexFunc) {
+    const intersects = [];
+    loop(areas, function (area) {
+      for (let i = 0, l = areaSize; i < l; ++i) {
+        let intersect = [];
+        for (let j = 0, jl =  areaSize; j < jl; ++j) {
+          let cell = area[indexFunc(i, j)];
+          intersect.push(cell);
+        }
+        intersects.push({
+          intersect: intersect,
+          area: area,
+          line: getLineContainingCell(lines, intersect[0])
+        });
+      }
+    });
+
+    return intersects;
+  }
+
+  function getLineContainingCell(lines, cell) {
+    for(let i = 0, l = lines.length; i < l; ++i) {
+      let line = lines[i];
+      for(let j = 0, jl = line.length; j < jl; ++j) {
+        if(line[j].id === cell.id) {
+          return line;
+        }
+      }
+    }
+    throw 'Cell with id \'' + cell.id + '\' not found.';
+  }
+
+  function loop(group, act) {
+    for(let i = 0, l = group.length; i < l; ++i) {
+      let cell = group[i];
+      act(cell);
+    }
   }
 }
