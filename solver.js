@@ -108,5 +108,22 @@ const S = {
       }
       delete cell.opt[optionsToRemove[i]];
     }
+  },
+  getNonIntersectingCells: function(intersect, group) {
+    const nonIntersect = [];
+    const intersectIds = {};
+
+    H.loop(intersect, function(cell) {
+      intersectIds[cell.id] = true;
+    });
+
+    for(let i = 0, l = group.length; i < l; ++i) {
+      let cell = group[i];
+      if(!intersectIds[cell.id]) {
+        nonIntersect.push(cell);
+      }
+    }
+
+    return nonIntersect;
   }
 };

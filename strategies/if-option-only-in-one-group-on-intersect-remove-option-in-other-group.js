@@ -20,29 +20,11 @@ function Strategy_IfOptionOnlyInOneGroupOnIntersectRemoveOptionInOtherGroup(grid
 
   function removeOptions(opt, intersectCount, groupA, groupB) {
     if(intersectCount.length  === groupA.length) {
-      let nonIntersecting = getNonIntersectingCells(intersectCount, groupB);
+      let nonIntersecting = S.getNonIntersectingCells(intersectCount, groupB);
       let optionsToRemove = [opt];
       H.loop(nonIntersecting, function(cell) {
         S.removeOptionsFromCell(cell, optionsToRemove);
       });
     }
-  }
-
-  function getNonIntersectingCells(intersect, group) {
-    const nonIntersect = [];
-    const intersectIds = {};
-
-    H.loop(intersect, function(cell) {
-      intersectIds[cell.id] = true;
-    });
-
-    for(let i = 0, l = group.length; i < l; ++i) {
-      let cell = group[i];
-      if(!intersectIds[cell.id]) {
-        nonIntersect.push(cell);
-      }
-    }
-
-    return nonIntersect;
   }
 }
