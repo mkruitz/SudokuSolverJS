@@ -67,7 +67,7 @@ function Solver(grid) {
 
 const S = {
   countOptions: function(group) {
-    const countOptions = { };
+    const counts = { };
     const setValues = { };
 
     H.loop(group, function(cell) {
@@ -79,15 +79,18 @@ const S = {
       const options = Object.getOwnPropertyNames(cell.opt);
       for (let i = 0, l = options.length; i < l; ++i) {
         let opt = options[i];
-        let count = countOptions[opt] = countOptions[opt] || [];
+        let count = counts[opt] = counts[opt] || [];
         count.push(cell);
       }
     });
 
-    return {
-      counts: countOptions,
-      setValues: setValues
-    };
+    H.loop(Object.getOwnPropertyNames(setValues), function (val) {
+      if(counts[val]) {
+        delete counts[val];
+      }
+    });
+
+    return counts;
   },
   setCellValue: function(cell, val) {
     if(!Number.isInteger(val)) {
