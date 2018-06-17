@@ -1,6 +1,6 @@
 function Strategy_OnlyOptionInGroup() {
   return {
-    tick: function(group) {
+    tickPerGroup: function(group) {
       const countOptions = { };
       const setValues = { };
 

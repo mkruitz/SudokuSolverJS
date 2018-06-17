@@ -1,6 +1,6 @@
 function Strategy_FieldsInGroupAreNoOptions() {
   return {
-    tick: function(group) {
+    tickPerGroup: function(group) {
       const alreadyFoundValues = [];
 
       loop(group, function(cell) {

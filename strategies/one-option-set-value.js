@@ -1,6 +1,6 @@
 function Strategy_OneOptionSetValue() {
   return {
-    tick: function(group) {
+    tickPerGroup: function(group) {
       loop(group, function(cell) {
         if(!Number.isNaN(cell.val)) {
           return;

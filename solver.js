@@ -51,7 +51,7 @@ function Solver(grid) {
 
   function runStrategy() {
     let s = strategies[strategyIndex];
-    loop(logicalGroups, s.tick);
+    loop(logicalGroups, s.tickPerGroup);
   }
 
   function selectNextStrategy() {
