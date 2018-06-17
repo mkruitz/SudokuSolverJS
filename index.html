@@ -56,7 +56,9 @@ function solve() {
   let i = 0;
   let status = solver.tick();
 
-  while( i < 20 && !status.done) {
+  while( i < 100 && !status.done) {
+    console.log('Iteration: ', i);
+
     if(status.isChanged) {
       printGrid(g);
     }
