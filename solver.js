@@ -84,7 +84,7 @@ const S = {
       }
     });
 
-    H.loop(Object.getOwnPropertyNames(setValues), function (val) {
+    H.loopProps(setValues, function (val) {
       if(counts[val]) {
         delete counts[val];
       }
