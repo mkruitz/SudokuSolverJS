@@ -3,7 +3,8 @@ function Solver(grid) {
   const strategies = [
     new Strategy_FieldsInGroupAreNoOptions(),
     new Strategy_OnlyOptionInGroup(),
-    new Strategy_OneOptionSetValue()
+    new Strategy_OneOptionSetValue(),
+    new Strategy_IfOptionOnlyInOneGroupOnIntersectRemoveOptionInOtherGroup(grid)
   ];
   let strategyIndex = 0;
   let changesCount = 0;
@@ -51,7 +52,12 @@ function Solver(grid) {
 
   function runStrategy() {
     let s = strategies[strategyIndex];
-    loop(logicalGroups, s.tickPerGroup);
+    if(s.tick) {
+      s.tick();
+    }
+    if(s.tickPerGroup) {
+      loop(logicalGroups, s.tickPerGroup);
+    }
   }
 
   function selectNextStrategy() {
